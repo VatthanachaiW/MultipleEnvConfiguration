@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;Staging;Production</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\demoCoreAppsetting.json" />
+    <None Remove="Templates\demoWeb.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Templates\demoCoreAppsetting.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Templates\demoWeb.config" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="&quot;$(SolutionDir)tools/nant/nant.exe&quot; /f:&quot;$(SolutionDir)src/Demo.Configurations/BuildFiles/Main.build&quot;&#xD;&#xA;&#xD;&#xA;&quot;$(SolutionDir)tools/nant/nant.exe&quot; DemoCore /f:&quot;$(SolutionDir)src/Demo.Configurations/BuildFiles/ConfigurationTransformer.build&quot; -D:Configuration=&quot;$(ConfigurationName)&quot;&#xD;&#xA;&quot;$(SolutionDir)tools/nant/nant.exe&quot; DemoWeb /f:&quot;$(SolutionDir)src/Demo.Configurations/BuildFiles/ConfigurationTransformer.build&quot; -D:Configuration=&quot;$(ConfigurationName)&quot;&#xD;&#xA;&#xD;&#xA;exit 0&#xD;&#xA;" />
+  </Target>
+
+</Project>

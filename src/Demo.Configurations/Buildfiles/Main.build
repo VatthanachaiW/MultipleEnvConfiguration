@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<project name="Main" xmlns="http://nant.sf.net/release/0.92/nant.xsd" >
+
+  <property name="ProjectDir" value="${project::get-base-directory()}/"/>
+  <echo message="ProjectDir: ${ProjectDir}" />
+
+  <fileset id="includedFiles">
+    <include name="${ProjectDir}../../Logs/**" />
+  </fileset>
+
+  <foreach item="File" property="filename">
+    <in>
+      <items refid="includedFiles" />
+    </in>
+    <do>
+      <echo message="include filename: ${filename}" />
+    </do>
+  </foreach>
+
+  <delete>
+    <fileset refid="includedFiles"/>
+  </delete>
+
+  <echo message="delete log files"/> 
+</project>

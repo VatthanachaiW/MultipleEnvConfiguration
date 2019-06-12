@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<project>
+  <property name="ProjectDir" value="${project::get-base-directory()}"/>
+
+  <property name="SolutionDir" value="${ProjectDir}/../../"/>
+
+  <echo message="SolutionDir: ${SolutionDir}"/>
+  <echo message="Configuration: ${Configuration}"/>
+  <echo message="ProjectDir: ${ProjectDir}"/>
+
+  <include buildfile="../Environments/VisualStudioConfigurations/${Configuration}.properties" failonerror="true" if="${Configuration != ''}" />
+
+  <echo message="LoggerRootLevel [${LoggerRootLevel}]" />
+  <echo message="FileAppenderLevel [${FileAppenderLevel}]" />
+
+  <target name="DemoCore">
+	<copy 
+		file="../Templates/demoCoreAppsetting.json" 
+		tofile="../../Demo.Core/appsettings.json"
+		inputencoding="utf-8" 
+		outputencoding="utf-8" 
+		overwrite="true">
+	  <filterchain>
+		<expandproperties />
+	  </filterchain>
+	</copy>
+  </target>
+
+  <target name="DemoWeb">
+	<copy 
+		file="../Templates/demoWeb.config" 
+		tofile="../../Demo.Web/Web.config"
+		inputencoding="utf-8" 
+		outputencoding="utf-8" 
+		overwrite="true">
+	  <filterchain>
+		<expandproperties />
+	  </filterchain>
+	</copy>
+  </target>
+
+</project>
